@@ -417,7 +417,7 @@ class App(QWidget):
             cv2.putText(
                 frame, label, (x - r // 3, y + r // 3),
                 cv2.FONT_HERSHEY_SIMPLEX, max(r / 120.0, 0.6),
-                color, 2, cv2.LINE_A
+                color, 2, cv2.LINE_AA
             )
 
             # Collect status for API consumers (optional)
