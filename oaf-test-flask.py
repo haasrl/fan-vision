@@ -55,21 +55,21 @@ class ApiServer:
 # ----------------------------
 # Defaults / tuning
 # ----------------------------
-DEFAULT_SRC: Union[int, str] = "rtsp://192.168.136.100:554/live/0"
+DEFAULT_SRC: Union[int, str] = "rtsp://192.168.1.13:554/live/0"
 FRAME_INTERVAL_MS = 16 
 
 # Hough & flow tuning
-HOUGH_MIN_DIST = 300
+HOUGH_MIN_DIST = 80
 HOUGH_PARAM1   = 100
 HOUGH_PARAM2   = 70
-HOUGH_MIN_R    = 160 
-HOUGH_MAX_R    = 220
+HOUGH_MIN_R    = 80 
+HOUGH_MAX_R    = 130
 
 FLOW_MAG_THRESH = 3.0          # was 1.0; raise to be less sensitive
-MOTION_PIXELS_START = 40000     # need this many moving pixels to declare "running"
-MOTION_PIXELS_STOP  = 20000     # drop below this to declare "stopped" (hysteresis)
-RING_INNER_FRACTION = 0.55     # analyze an annulus between 55%R and 95%R
-RING_OUTER_FRACTION = 0.95
+MOTION_PIXELS_START = 20000     # need this many moving pixels to declare "running"
+MOTION_PIXELS_STOP  = 10000     # drop below this to declare "stopped" (hysteresis)
+RING_INNER_FRACTION = 0.15     # analyze an annulus between 55%R and 95%R
+RING_OUTER_FRACTION = 1.0
 DIR_HISTORY = 10               # frames to keep for direction smoothing
 DIR_FLIP_CONFIRM = 4           # need >= this many consecutive opposite votes to flip
 
@@ -403,17 +403,17 @@ class App(QWidget):
             # Color & label: STOP=yellow, CW=green, CCW=red
             if running:
                 if cw:
-                    color = (0, 255, 0)     # CW -> green (BGR)
+                    color = (0, 0, 255)     # CW -> green (BGR)
                     label = "CCW"
                 else:
-                    color = (0, 0, 255)     # CCW -> red (BGR)
+                    color = (0, 255, 0)     # CCW -> red (BGR)
                     label = "CW"
             else:
                 color = (0, 255, 255)       # not moving -> yellow (BGR)
                 label = "STOP"
 
             # Thicker outline (6 px)
-            cv2.circle(frame, (x, y), r, color, 6)
+            cv2.circle(frame, (x, y), r, color, 20)
             cv2.putText(
                 frame, label, (x - r // 3, y + r // 3),
                 cv2.FONT_HERSHEY_SIMPLEX, max(r / 120.0, 0.6),
