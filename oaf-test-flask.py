@@ -59,11 +59,11 @@ DEFAULT_SRC: Union[int, str] = "rtsp://192.168.1.13:554/live/0"
 FRAME_INTERVAL_MS = 16 
 
 # Hough & flow tuning
-HOUGH_MIN_DIST = 80
+HOUGH_MIN_DIST = 70
 HOUGH_PARAM1   = 100
 HOUGH_PARAM2   = 70
-HOUGH_MIN_R    = 80 
-HOUGH_MAX_R    = 130
+HOUGH_MIN_R    = 70 
+HOUGH_MAX_R    = 140
 
 FLOW_MAG_THRESH = 3.0          # was 1.0; raise to be less sensitive
 MOTION_PIXELS_START = 20000     # need this many moving pixels to declare "running"
